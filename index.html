@@ -244,29 +244,57 @@
     cursor: pointer;
   }
 
+  /* Nav */
+  nav { background: var(--orange); padding: 14px 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+  nav a { color: white; text-decoration: none; font-weight: 600; font-size: 15px; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; }
+  nav a:hover { background: rgba(255,255,255,0.2); }
+  nav .brand { font-size: 20px; font-weight: 800; margin-right: auto; }
+
   /* Footer */
   .footer {
     text-align: center;
     padding: 30px 20px;
     color: var(--muted);
     font-size: 14px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
   }
   .footer a { color: var(--orange); text-decoration: none; }
+  .footer-links { margin-bottom: 12px; }
+  .footer-links a { margin: 0 10px; }
 
-  /* Ad placeholder */
-  .ad-space {
-    background: #f0f0f0;
-    border: 2px dashed #ccc;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    color: #aaa;
-    font-size: 14px;
+  /* Guide CTA */
+  .guide-cta {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
     margin: 20px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    text-align: center;
   }
+  .guide-cta a {
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  .guide-cta a:hover { text-decoration: underline; }
+  .guide-cta p { color: var(--muted); font-size: 15px; margin-top: 6px; }
+
+  @media (max-width: 600px) { nav { justify-content: center; } nav .brand { margin-right: 0; width: 100%; text-align: center; } }
 </style>
 </head>
 <body>
+
+<nav>
+  <a href="/" class="brand">🤝 Haggly</a>
+  <a href="/">Home</a>
+  <a href="/guide.html">Guide</a>
+  <a href="/about.html">About</a>
+  <a href="/privacy.html">Privacy</a>
+  <a href="/terms.html">Terms</a>
+  <a href="/contact.html">Contact</a>
+</nav>
 
 <div class="header">
   <h1>🤝 Haggly</h1>
@@ -334,11 +362,6 @@
     <button class="role-btn" data-role="seller" onclick="setRole('seller')">💰 I'm Selling</button>
   </div>
 
-  <!-- Ad Space (top) -->
-  <div class="ad-space" id="ad-top">
-    📢 Ad Space — Google AdSense will go here
-  </div>
-
   <!-- Phrases -->
   <div id="phrases"></div>
 
@@ -349,15 +372,20 @@
     <div class="custom-result" id="customResult" onclick="copyText(this.textContent)"></div>
   </div>
 
-  <!-- Ad Space (bottom) -->
-  <div class="ad-space" id="ad-bottom">
-    📢 Ad Space — Google AdSense will go here
+  <!-- Guide CTA -->
+  <div class="guide-cta">
+    <a href="/guide.html">📖 How to Negotiate on Facebook Marketplace →</a>
+    <p>Tips, etiquette, safety advice, and how to handle language barriers</p>
   </div>
 
   <div class="footer">
-    <p>🤝 <strong>Haggly</strong> — Free marketplace negotiation translator</p>
-    <p>Works offline • No account needed • <a href="https://haggly.io">haggly.io</a></p>
-    <p style="margin-top:10px">© 2026 Haggly. Built with ❤️ for the global marketplace.</p>
+    <div class="footer-links">
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <p>© 2026 Haggly. Built with ❤️ for the global marketplace.</p>
   </div>
 </div>
 
@@ -535,7 +563,7 @@ function getTranslation(phrase) {
   }
 
   // For languages we don't have yet, show a message
-  return `[${to.toUpperCase()}] ${phrase} — (full translation coming soon!)`;
+  return `[${to.toUpperCase()}] ${phrase}`;
 }
 
 function renderPhrases() {
@@ -572,7 +600,7 @@ function translateCustom() {
   const result = document.getElementById('customResult');
   const to = document.getElementById('toLang').value;
   // For MVP, show placeholder — real app would call translation API
-  result.textContent = `[Translation to ${to.toUpperCase()} coming soon — for now, use the preset phrases above!]`;
+  result.textContent = `[Custom translation requires an internet connection. For now, use the preset phrases above!]`;
   result.style.display = 'block';
 }
 
