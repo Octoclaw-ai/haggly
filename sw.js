@@ -1,5 +1,5 @@
 // Haggly Service Worker — enables offline use (PWA)
-const CACHE_NAME = 'haggly-v2';
+const CACHE_NAME = 'haggly-v3';
 const ASSETS = [
   '/',
   '/index.html',
@@ -8,7 +8,10 @@ const ASSETS = [
   '/privacy.html',
   '/terms.html',
   '/contact.html',
-  '/manifest.json'
+  '/manifest.json',
+  '/translations.js',
+  '/ui-strings.js',
+  '/localize.js'
 ];
 
 self.addEventListener('install', e => {

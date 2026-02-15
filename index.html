@@ -176,6 +176,7 @@
     font-size: 20px;
     font-weight: 600;
     color: var(--text);
+    display: inline;
   }
   .phrase-phonetic {
     font-size: 14px;
@@ -248,7 +249,7 @@
   nav { background: var(--orange); padding: 14px 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
   nav a { color: white; text-decoration: none; font-weight: 600; font-size: 15px; padding: 6px 12px; border-radius: 8px; transition: background 0.2s; }
   nav a:hover { background: rgba(255,255,255,0.2); }
-  nav .brand { font-size: 20px; font-weight: 800; margin-right: auto; }
+  nav .brand { font-size: 20px; font-weight: 800; margin-right: 0; }
 
   /* Footer */
   .footer {
@@ -281,24 +282,42 @@
   .guide-cta a:hover { text-decoration: underline; }
   .guide-cta p { color: var(--muted); font-size: 15px; margin-top: 6px; }
 
-  @media (max-width: 600px) { nav { justify-content: center; } nav .brand { margin-right: 0; width: 100%; text-align: center; } }
+  /* TTS button */
+  .tts-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 2px 6px;
+    margin-left: 6px;
+    border-radius: 6px;
+    vertical-align: middle;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .tts-btn:hover { opacity: 1; background: #FFF3EE; }
+
+  @media (max-width: 600px) {
+    nav { justify-content: center; }
+    nav .brand { width: 100%; text-align: center; }
+  }
 </style>
 </head>
 <body>
 
 <nav>
   <a href="/" class="brand">🤝 Haggly</a>
-  <a href="/">Home</a>
-  <a href="/guide.html">Guide</a>
-  <a href="/about.html">About</a>
-  <a href="/privacy.html">Privacy</a>
-  <a href="/terms.html">Terms</a>
-  <a href="/contact.html">Contact</a>
+  <a href="/" data-i18n="nav_home">Home</a>
+  <a href="/guide.html" data-i18n="nav_guide">Guide</a>
+  <a href="/about.html" data-i18n="nav_about">About</a>
+  <a href="/privacy.html" data-i18n="nav_privacy">Privacy</a>
+  <a href="/terms.html" data-i18n="nav_terms">Terms</a>
+  <a href="/contact.html" data-i18n="nav_contact">Contact</a>
 </nav>
 
 <div class="header">
   <h1>🤝 Haggly</h1>
-  <p>Negotiate in any language. Tap a phrase, copy it, close the deal.</p>
+  <p data-i18n="header_tagline">Negotiate in any language. Tap a phrase, copy it, close the deal.</p>
 </div>
 
 <div class="container">
@@ -306,7 +325,7 @@
   <!-- Language Selection -->
   <div class="lang-section">
     <div class="lang-row">
-      <span class="lang-label">I speak</span>
+      <span class="lang-label" data-i18n="label_i_speak">I speak</span>
       <select id="fromLang">
         <option value="en">🇺🇸 English</option>
         <option value="es">🇪🇸 Español</option>
@@ -326,13 +345,14 @@
         <option value="sw">🇰🇪 Kiswahili</option>
         <option value="ha">🇳🇬 Hausa</option>
         <option value="am">🇪🇹 አማርኛ</option>
+        <option value="ht">🇭🇹 Kreyòl Ayisyen</option>
       </select>
     </div>
 
-    <button class="swap-btn" onclick="swapLangs()" title="Swap languages">⇅</button>
+    <button class="swap-btn" onclick="swapLangs()" data-i18n-title="swap_title" title="Swap languages">⇅</button>
 
     <div class="lang-row" style="margin-top:12px">
-      <span class="lang-label">They speak</span>
+      <span class="lang-label" data-i18n="label_they_speak">They speak</span>
       <select id="toLang">
         <option value="es">🇪🇸 Español</option>
         <option value="en">🇺🇸 English</option>
@@ -352,14 +372,15 @@
         <option value="sw">🇰🇪 Kiswahili</option>
         <option value="ha">🇳🇬 Hausa</option>
         <option value="am">🇪🇹 አማርኛ</option>
+        <option value="ht">🇭🇹 Kreyòl Ayisyen</option>
       </select>
     </div>
   </div>
 
   <!-- Role -->
   <div class="role-row">
-    <button class="role-btn active" data-role="buyer" onclick="setRole('buyer')">🛒 I'm Buying</button>
-    <button class="role-btn" data-role="seller" onclick="setRole('seller')">💰 I'm Selling</button>
+    <button class="role-btn active" data-role="buyer" onclick="setRole('buyer')" data-i18n="btn_buying">🛒 I'm Buying</button>
+    <button class="role-btn" data-role="seller" onclick="setRole('seller')" data-i18n="btn_selling">💰 I'm Selling</button>
   </div>
 
   <!-- Phrases -->
@@ -367,29 +388,29 @@
 
   <!-- Custom Phrase -->
   <div class="custom-input">
-    <textarea id="customPhrase" placeholder="Type your own phrase to translate..."></textarea>
-    <button class="translate-btn" onclick="translateCustom()">Translate →</button>
+    <textarea id="customPhrase" data-i18n="custom_placeholder" placeholder="Type your own phrase to translate..."></textarea>
+    <button class="translate-btn" onclick="translateCustom()" data-i18n="btn_translate">Translate →</button>
     <div class="custom-result" id="customResult" onclick="copyText(this.textContent)"></div>
   </div>
 
   <!-- Guide CTA -->
   <div class="guide-cta">
-    <a href="/guide.html">📖 How to Negotiate on Facebook Marketplace →</a>
-    <p>Tips, etiquette, safety advice, and how to handle language barriers</p>
+    <a href="/guide.html" data-i18n="guide_cta">📖 How to Negotiate on Facebook Marketplace →</a>
+    <p data-i18n="guide_cta_sub">Tips, etiquette, safety advice, and how to handle language barriers</p>
   </div>
 
   <div class="footer">
     <div class="footer-links">
-      <a href="/about.html">About</a>
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms of Service</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/about.html" data-i18n="footer_about">About</a>
+      <a href="/privacy.html" data-i18n="footer_privacy">Privacy Policy</a>
+      <a href="/terms.html" data-i18n="footer_terms">Terms of Service</a>
+      <a href="/contact.html" data-i18n="footer_contact">Contact</a>
     </div>
-    <p>© 2026 Haggly. Built with ❤️ for the global marketplace.</p>
+    <p data-i18n="footer_copyright">© 2026 Haggly. Built with ❤️ for the global marketplace.</p>
   </div>
 </div>
 
-<div class="copied-toast" id="toast">✅ Copied! Paste it in your chat</div>
+<div class="copied-toast" id="toast" data-i18n="toast_copied">✅ Copied! Paste it in your chat</div>
 
 <script>
 // Phrase database — all translations
@@ -470,67 +491,13 @@ const PHRASES = {
   }
 };
 
-// Translation dictionary (subset — full app would use API)
-// Format: { "en": { "es": { "phrase": "translation" }, ... } }
-const TRANSLATIONS = {
-  "en": {
-    "es": {
-      "Hi, is this still available?": "Hola, ¿esto todavía está disponible?",
-      "I'm interested in this item.": "Estoy interesado/a en este artículo.",
-      "Can you tell me more about the condition?": "¿Puede decirme más sobre el estado?",
-      "How old is this?": "¿Cuánto tiempo tiene esto?",
-      "Does it work properly?": "¿Funciona correctamente?",
-      "Are there any scratches or damage?": "¿Tiene algún rasguño o daño?",
-      "What's your best price?": "¿Cuál es su mejor precio?",
-      "Would you take $__?": "¿Aceptaría $__?",
-      "That's a bit high for me. Can you do lower?": "Es un poco alto para mí. ¿Puede bajar el precio?",
-      "I've seen similar items for less.": "He visto artículos similares por menos.",
-      "I can pay cash right now.": "Puedo pagar en efectivo ahora mismo.",
-      "If I buy two, can you give me a deal?": "Si compro dos, ¿me puede hacer un descuento?",
-      "Can you meet me in the middle?": "¿Podemos llegar a un punto medio?",
-      "Is the price firm or negotiable?": "¿El precio es fijo o negociable?",
-      "Can you deliver it?": "¿Puede entregarlo?",
-      "Where can we meet?": "¿Dónde nos podemos encontrar?",
-      "Can I pick it up today?": "¿Puedo recogerlo hoy?",
-      "What time works for you?": "¿A qué hora le conviene?",
-      "Can I see it first before buying?": "¿Puedo verlo primero antes de comprar?",
-      "I'll meet you at a public place.": "Nos vemos en un lugar público.",
-      "Can you hold it for me until tomorrow?": "¿Puede guardármelo hasta mañana?",
-      "Deal! I'll take it.": "¡Trato hecho! Me lo llevo.",
-      "I'll send you my location.": "Le envío mi ubicación.",
-      "Cash or digital payment?": "¿Efectivo o pago digital?",
-      "Do you accept Zelle / Venmo / Cash App?": "¿Acepta Zelle / Venmo / Cash App?",
-      "Thank you! Great doing business with you.": "¡Gracias! Un placer hacer negocios con usted.",
-      "I changed my mind, sorry.": "Cambié de opinión, lo siento.",
-      "Yes, it's still available!": "¡Sí, todavía está disponible!",
-      "Thanks for your interest.": "Gracias por su interés.",
-      "It's in great condition.": "Está en excelentes condiciones.",
-      "It's like new, barely used.": "Está como nuevo, casi sin uso.",
-      "Here are more photos.": "Aquí hay más fotos.",
-      "I bought it __ months ago.": "Lo compré hace __ meses.",
-      "My asking price is $__.": "Mi precio es $__.",
-      "The price is firm.": "El precio es firme.",
-      "I can do $__ if you pick up today.": "Puedo dejarlo en $__ si lo recoge hoy.",
-      "Sorry, that's too low.": "Lo siento, eso es muy bajo.",
-      "I already have other buyers interested.": "Ya tengo otros compradores interesados.",
-      "I'll give you a small discount for cash.": "Le hago un pequeño descuento si paga en efectivo.",
-      "Best I can do is $__.": "Lo mejor que puedo hacer es $__.",
-      "The price already includes __.": "El precio ya incluye __.",
-      "You can pick it up at __.": "Puede recogerlo en __.",
-      "I can meet at a public location.": "Puedo encontrarnos en un lugar público.",
-      "I'm available today after __.": "Estoy disponible hoy después de las __.",
-      "Let me know when you're on the way.": "Avíseme cuando esté en camino.",
-      "Please be on time.": "Por favor, sea puntual.",
-      "I can hold it until __ for you.": "Puedo guardárselo hasta __.",
-      "No delivery, pickup only.": "No hago entregas, solo recogida.",
-      "Great, it's yours!": "¡Genial, es suyo!",
-      "I accept cash, Zelle, or Venmo.": "Acepto efectivo, Zelle o Venmo.",
-      "No refunds or returns.": "No se aceptan devoluciones.",
-      "Thanks for buying! Enjoy it.": "¡Gracias por comprar! Disfrútelo.",
-      "I'll mark it as sold.": "Lo marcaré como vendido.",
-      "Sorry, it's already been sold.": "Lo siento, ya se vendió."
-    }
-  }
+// Category name → i18n key mapping
+const CATEGORY_I18N = {
+  "Opening & Greeting": "cat_opening",
+  "Negotiating Price": "cat_negotiating",
+  "Logistics": "cat_logistics",
+  "Closing the Deal": "cat_closing",
+  "Listing & Greeting": "cat_listing"
 };
 
 let currentRole = 'buyer';
@@ -557,28 +524,39 @@ function getTranslation(phrase) {
 
   if (from === to) return phrase;
 
-  // Try direct translation
-  if (TRANSLATIONS[from] && TRANSLATIONS[from][to] && TRANSLATIONS[from][to][phrase]) {
+  // Use TRANSLATIONS from translations.js
+  if (typeof TRANSLATIONS !== 'undefined' && TRANSLATIONS[from] && TRANSLATIONS[from][to] && TRANSLATIONS[from][to][phrase]) {
     return TRANSLATIONS[from][to][phrase];
   }
 
-  // For languages we don't have yet, show a message
   return `[${to.toUpperCase()}] ${phrase}`;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 function renderPhrases() {
   const container = document.getElementById('phrases');
   const phrases = PHRASES[currentRole];
+  const toLang = document.getElementById('toLang').value;
+  const t = window.hagglyI18n ? window.hagglyI18n.t : function(k) { return k; };
   let html = '';
 
   for (const [category, items] of Object.entries(phrases)) {
-    html += `<div class="category-title">${category}</div>`;
+    const i18nKey = CATEGORY_I18N[category] || category;
+    const localizedCat = t(i18nKey);
+    html += `<div class="category-title" data-i18n="${i18nKey}">${escapeHtml(localizedCat)}</div>`;
     for (const phrase of items) {
       const translated = getTranslation(phrase);
+      const escapedTranslated = escapeHtml(translated);
       html += `
-        <div class="phrase-card" onclick="copyText('${translated.replace(/'/g, "\\'")}')">
-          <div class="phrase-original">${phrase}</div>
-          <div class="phrase-translated">${translated}</div>
+        <div class="phrase-card" onclick="copyText('${translated.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">
+          <div class="phrase-original">${escapeHtml(phrase)}</div>
+          <div class="phrase-translated-row">
+            <span class="phrase-translated">${escapedTranslated}</span>
+            <button class="tts-btn" onclick="event.stopPropagation(); speakText('${translated.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}', '${toLang}')" title="Listen">🔊</button>
+          </div>
         </div>`;
     }
   }
@@ -598,15 +576,17 @@ function translateCustom() {
   const text = document.getElementById('customPhrase').value.trim();
   if (!text) return;
   const result = document.getElementById('customResult');
-  const to = document.getElementById('toLang').value;
-  // For MVP, show placeholder — real app would call translation API
-  result.textContent = `[Custom translation requires an internet connection. For now, use the preset phrases above!]`;
+  const t = window.hagglyI18n ? window.hagglyI18n.t : function(k) { return k; };
+  result.textContent = t('custom_no_translation');
   result.style.display = 'block';
 }
 
 // Listen for language changes
 document.getElementById('fromLang').addEventListener('change', renderPhrases);
 document.getElementById('toLang').addEventListener('change', renderPhrases);
+
+// Re-render when UI language changes (for category headers)
+document.addEventListener('haggly-lang-change', renderPhrases);
 
 // Initial render
 renderPhrases();
@@ -616,6 +596,10 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
 </script>
+
+<script src="translations.js"></script>
+<script src="ui-strings.js"></script>
+<script src="localize.js"></script>
 
 </body>
 </html>
